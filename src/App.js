@@ -1,13 +1,11 @@
-import './App.css';
-
+import "./App.css";
+import Header from "./components/Header/Header.jsx";
 const App = () => {
-
-
   return (
     <div className="app-container">
-        <button className="btn btn-primary">asfnboasnfio</button>
+      <Header />
     </div>
   );
-}
+};
 
 export default App;
