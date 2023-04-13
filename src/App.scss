@@ -5,16 +5,99 @@ body {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
 }
 video {
   position: fixed;
   width: 100vw;
   bottom: 0;
 }
-.navbar {
-  z-index: 10;
-  opacity: 0.7;
-  &:hover {
-    opacity: 1;
+
+@mixin mq_min_1350 {
+  @media screen and (min-width: 1350) {
+    @content;
+  }
+}
+@mixin flexbox($display, $justify, $align, $wrap) {
+  display: $display;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+@include mq_min_1350 {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 1300px !important;
+  }
+}
+
+.app-container {
+  .header-container {
+    padding-top: 20px;
+    .navbar {
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0) !important;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .button-block {
+      .btn {
+        border: 1px solid rgb(38, 38, 39);
+        border-radius: 4px;
+        padding: 8px 16px;
+        height: 42px;
+        &:hover {
+          opacity: 0.7;
+        }
+        &:nth-child(1) {
+          background-color: transparent;
+          color: rgb(38, 38, 39);
+          margin-right: 16px;
+        }
+        &:nth-child(2) {
+          background-color: rgb(38, 38, 39);
+          color: #fff;
+        }
+      }
+    }
+  }
+  .main-container {
+  }
+  .homepage-container {
+    .homepage-content {
+      position: relative;
+      width: 50%;
+      padding: 100px;
+      padding-top: 20px;
+      .title {
+        font-size: 64px;
+        font-weight: 400;
+        margin-bottom: 24px;
+      }
+      .description {
+        font-size: 24px;
+      }
+      button {
+        background-color: rgb(38, 38, 39);
+        color: #fff;
+        border: 1px solid rgb(38, 38, 39);
+        padding: 12px 24px;
+        border-radius: 4px;
+        text-align: center;
+        margin-bottom: 24px;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+      .instruct {
+        @include flexbox(flex, center, start, wrap);
+        flex-direction: column;
+        font-size: 14px;
+      }
+    }
   }
 }
