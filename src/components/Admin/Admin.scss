@@ -1,13 +1,58 @@
 @import "~react-pro-sidebar/dist/scss/styles.scss";
 
 .admin-container {
+    height: 100vh;
+
     display: flex;
 
     .admin-sidebar {
+        .pro-sidebar-header {
+            div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+                svg {
+                    width: 40px;
+                    height: 40px;
+                }
+                span {
+                    font-size: 24px;
+                }
+            }
+        }
         .prosidebar {
             height: 100vh;
         }
     }
     .admin-content {
+    }
+}
+.sidebar-btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .sidebar-btn {
+        transition: width 0.3s;
+        width: 150px;
+        padding: 1px 15px;
+        border-radius: 40px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #adadad;
+        text-decoration: none;
+        margin: 0 auto;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        span {
+            margin-left: 5px;
+            font-size: 13px;
+        }
+        &:hover {
+            color: $highlight-color;
+        }
     }
 }
