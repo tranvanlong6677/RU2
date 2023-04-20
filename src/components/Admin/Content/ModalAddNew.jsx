@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import "./ModalAddNew.scss";
 import { BsFolderPlus } from "react-icons/bs";
 import { createUser } from "../../../services/userServices";
+import { toast } from "react-toastify";
 
 const ModalAddNew = (props) => {
   const defaultDataModal = {
@@ -38,11 +39,26 @@ const ModalAddNew = (props) => {
     setAddress("");
     setUsername("");
     setRole("USER");
-    setPassword("")
+    setPassword("");
     setImgPreview("");
+  };
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
   };
   const handleSubmitAddNewModal = async (userInfo) => {
     console.log(">>> check userInfo", userInfo);
+    if (!validateEmail(userInfo.email)) {
+      toast.error("Invalid email");
+      return;
+    }
+    if (!password) {
+      toast.error("Invalid password");
+    }
     let res = await createUser(
       userInfo.email,
       userInfo.password,
@@ -50,7 +66,13 @@ const ModalAddNew = (props) => {
       userInfo.role,
       userInfo.userImage
     );
-    console.log(">>> check res create", res);
+    if (res && res.data && res.data.EC === 0) {
+      toast.success(res.data.EM);
+    }
+    if (res && res.data && res.data.EC !== 0){
+      toast.error(res.data.EM)
+    }
+    console.log(">> check res create", res);
     fetchAllUsers();
     handleClose();
   };

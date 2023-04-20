@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import router from './routes/router'
+import 'react-toastify/dist/ReactToastify.css';
 import {
   RouterProvider,
 } from "react-router-dom";
