@@ -4,16 +4,26 @@ import Button from "react-bootstrap/Button";
 // import imgPreview from "../../../assets/images/c3.jpg";
 import "./ModalAddNew.scss";
 import { BsFolderPlus } from "react-icons/bs";
+import { createUser } from "../../../services/userServices";
 
 const ModalAddNew = (props) => {
-  const { isShowModalAddNew, setIsShowModalAddNew } = props;
+  const defaultDataModal = {
+    id: "",
+    username: "",
+    password: "",
+    role: "",
+    userImage: "",
+  };
+
+  const { isShowModalAddNew, setIsShowModalAddNew, fetchAllUsers } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [address, setAddress] = useState("");
-  const [role, setRole] = useState("User");
+  const [role, setRole] = useState("USER");
   const [imgPreview, setImgPreview] = useState("");
   const [image, setImage] = useState("");
+  const [dataModal, setDataModal] = useState(defaultDataModal);
   const handleUploadImage = (e) => {
     if (e.target && e.target.files && e.target.files[0]) {
       setImgPreview(URL.createObjectURL(e.target.files[0]));
@@ -22,16 +32,38 @@ const ModalAddNew = (props) => {
       //   setImgPreview(null);
     }
   };
+  const handleClose = () => {
+    setIsShowModalAddNew(false);
+    setEmail("");
+    setAddress("");
+    setUsername("");
+    setRole("USER");
+    setPassword("")
+    setImgPreview("");
+  };
+  const handleSubmitAddNewModal = async (userInfo) => {
+    console.log(">>> check userInfo", userInfo);
+    let res = await createUser(
+      userInfo.email,
+      userInfo.password,
+      userInfo.username,
+      userInfo.role,
+      userInfo.userImage
+    );
+    console.log(">>> check res create", res);
+    fetchAllUsers();
+    handleClose();
+  };
 
   return (
     <div>
       <Modal
         // {...props}
         show={isShowModalAddNew}
+        onHide={() => handleClose()}
         size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        onHide={() => setIsShowModalAddNew(false)}
         backdrop="static"
         className="modal-add-new-container"
       >
@@ -114,8 +146,8 @@ const ModalAddNew = (props) => {
                     setRole(e.target.value);
                   }}
                 >
-                  <option value="User">User</option>
-                  <option value="Admin">Admin</option>
+                  <option value="USER">User</option>
+                  <option value="ADMIN">Admin</option>
                 </select>
               </div>
               <div className="mb-3 col-sm-12">
@@ -143,8 +175,20 @@ const ModalAddNew = (props) => {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setIsShowModalAddNew(false)}>Submit</Button>
-          <Button onClick={() => setIsShowModalAddNew(false)} variant="danger">
+          <Button
+            onClick={() =>
+              handleSubmitAddNewModal({
+                email,
+                password,
+                username,
+                role,
+                userImage: image,
+              })
+            }
+          >
+            Submit
+          </Button>
+          <Button onClick={() => handleClose()} variant="danger">
             Close
           </Button>
         </Modal.Footer>
