@@ -19,6 +19,7 @@ import {
   FaHeart,
 } from "react-icons/fa";
 import sidebarBg from "../../assets/images/bg2.jpg";
+import { NavLink } from "react-router-dom";
 const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
   return (
     <ProSidebar
@@ -43,14 +44,17 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
           }}
         >
           <FaReact />
-          {!collapsed &&  <span>Long Tran</span>}
-         
+          {!collapsed && <span>Long Tran</span>}
         </div>
       </SidebarHeader>
       <Menu iconShape="square">
-        <MenuItem icon={<FaGem />}>Dashboard</MenuItem>
+        <MenuItem icon={<FaGem />}>
+          <NavLink to="/admin/dashboard">Dashboard</NavLink>
+        </MenuItem>
         <SubMenu title="Features" icon={<FaHeart />}>
-          <MenuItem>Quản lý người dùng</MenuItem>
+          <MenuItem>
+            <NavLink to="/admin/manage-user">Quản lý người dùng</NavLink>
+          </MenuItem>
           <MenuItem>Quản lý bài quiz</MenuItem>
           <MenuItem>Quản lý câu hỏi</MenuItem>
         </SubMenu>

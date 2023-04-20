@@ -4,6 +4,8 @@ import Admin from '../components/Admin/Admin.jsx'
 import User from '../components/User/User.jsx'
 import App from '../App';
 import HomePage from "../components/Home/HomePage.jsx";
+import ManageUser from "../components/Admin/Content/ManageUser.jsx";
+import Dashboard from "../components/Admin/Content/Dashboard.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,6 +23,17 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin/>,
+    children:[
+      {
+        path: "manage-user",
+        element: <ManageUser/>,
+      },
+      {
+        index:true,
+        path: "dashboard",
+        element: <Dashboard/>,
+      }
+    ]
   },
   
 ]);
