@@ -51,14 +51,14 @@ const ModalAddNew = (props) => {
       );
   };
   const handleSubmitAddNewModal = async (userInfo) => {
-    console.log(">>> check userInfo", userInfo);
-    if (!validateEmail(userInfo.email)) {
-      toast.error("Invalid email");
-      return;
-    }
-    if (!password) {
-      toast.error("Invalid password");
-    }
+    // console.log(">>> check userInfo", userInfo);
+    // if (!validateEmail(userInfo.email)) {
+    //   toast.error("Invalid email");
+    //   return;
+    // }
+    // if (!password) {
+    //   toast.error("Invalid password");
+    // }
     let res = await createUser(
       userInfo.email,
       userInfo.password,
@@ -66,15 +66,15 @@ const ModalAddNew = (props) => {
       userInfo.role,
       userInfo.userImage
     );
-    if (res && res.data && res.data.EC === 0) {
-      toast.success(res.data.EM);
+    if (res && res.EC === 0) {
+      console.log(">>> check user create", res);
+      toast.success(res.EM);
+      handleClose();
+      fetchAllUsers();
     }
-    if (res && res.data && res.data.EC !== 0){
-      toast.error(res.data.EM)
+    if (res && res.EC !== 0) {
+      toast.error(res.EM);
     }
-    console.log(">> check res create", res);
-    fetchAllUsers();
-    handleClose();
   };
 
   return (

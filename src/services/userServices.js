@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from "../utils/AxiosCustomize";
 const getAllUsers = () => {
-  return axios.get("http://localhost:8081/api/v1/participant/all");
+  return axios.get("api/v1/participant/all");
 };
 const createUser = (email, password, username, role, userImage) => {
   const data = new FormData();
@@ -10,11 +10,11 @@ const createUser = (email, password, username, role, userImage) => {
   data.append("role", role);
   data.append("userImage", userImage);
   
-  return axios.post("http://localhost:8081/api/v1/participant", data);
+  return axios.post("api/v1/participant", data);
 };
 
 const deleteUser = (id) => {
-  return axios.delete("http://localhost:8081/api/v1/participant", {
+  return axios.delete("api/v1/participant", {
     data: {
       id,
     },
