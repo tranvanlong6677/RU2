@@ -18,6 +18,10 @@ const ModalAddNew = ({
   isModalDetail=false,
   dataUserUpdateModal,
   setDataUserUpdateModal,
+  fetchUserWithPaginate,
+  totalPage,
+  page,
+  setPage,
 }) => {
   // console.log(">>> check dataUserUpdateModal", dataUserUpdateModal);
   const defaultDataModal = {
@@ -75,7 +79,8 @@ const ModalAddNew = ({
       if (res && res.EC === 0) {
         toast.success(res.EM);
         handleClose();
-        await fetchAllUsers();
+        // await fetchAllUsers();
+        await fetchUserWithPaginate(page);
       }
       if (res && res.EC !== 0) {
         toast.error(res.EM);
@@ -99,7 +104,8 @@ const ModalAddNew = ({
       if (res && res.EC === 0) {
         toast.success(res.EM);
         handleClose();
-        fetchAllUsers();
+        // fetchAllUsers();
+        await fetchUserWithPaginate(1);
       }
       if (res && res.EC !== 0) {
         toast.error(res.EM);

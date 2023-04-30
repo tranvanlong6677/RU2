@@ -20,7 +20,7 @@ const deleteUser = (id) => {
     },
   });
 };
-const updateUser = (id,username, role, image) => {
+const updateUser = (id, username, role, image) => {
   const data = new FormData();
 
   data.append("id", id);
@@ -30,7 +30,7 @@ const updateUser = (id,username, role, image) => {
   return axios.put("api/v1/participant", data);
 };
 
-const getUserWithPaginate = (page,limit)=>{
-  return axios.get(`/api/v1/participant?page=${page}&limit=${limit}`)
-}
-export { getAllUsers, createUser, deleteUser,updateUser,getUserWithPaginate };
+const getUserWithPaginate = (page, limit) => {
+  return axios.get(`/api/v1/participant?page=${page}&limit=${limit}`);
+};
+export { getAllUsers, createUser, deleteUser, updateUser, getUserWithPaginate };

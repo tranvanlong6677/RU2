@@ -24,7 +24,6 @@ const TableUsersPaginate = (props) => {
   } = props;
 
   const handlePageClick = (event) => {
-    console.log(`User requested page number ${event.selected}`);
     setPage(+event.selected + 1);
   };
   const handleDeleteUser = async (id) => {
@@ -96,6 +95,7 @@ const TableUsersPaginate = (props) => {
       </table>
       <div className="paginate-container">
         <ReactPaginate
+          forcePage={page - 1}
           breakLabel="..."
           nextLabel="next >"
           onPageChange={handlePageClick}

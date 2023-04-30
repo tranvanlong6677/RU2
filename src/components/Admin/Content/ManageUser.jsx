@@ -34,6 +34,7 @@ const ManageUser = () => {
     if (res && res.DT && res.DT.users && res.EC === 0) {
       setListUsers(res.DT.users);
       setTotalPage(res.DT.totalPages);
+      setPage(page);
     }
   };
   useEffect(() => {
@@ -91,6 +92,8 @@ const ManageUser = () => {
         isShowModalAddNew={isShowModalAddNew}
         setIsShowModalAddNew={setIsShowModalAddNew}
         fetchAllUsers={fetchAllUsers}
+        fetchUserWithPaginate={fetchUserWithPaginate}
+        totalPage={totalPage}
       />
       <ModalUpdateUser
         isShowModalUpdate={isShowModalUpdate}
@@ -98,6 +101,9 @@ const ManageUser = () => {
         dataUserUpdateModal={dataUserUpdateModal}
         setDataUserUpdateModal={setDataUserUpdateModal}
         fetchAllUsers={fetchAllUsers}
+        fetchUserWithPaginate={fetchUserWithPaginate}
+        page={page}
+        setPage={setPage}
       />
       <ModalDetailUser
         dataModalDetail={dataModalDetail}

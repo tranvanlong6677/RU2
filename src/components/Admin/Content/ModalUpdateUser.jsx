@@ -6,8 +6,10 @@ const ModalUpdateUser = ({
   setIsShowModalUpdate,
   dataUserUpdateModal,
   setDataUserUpdateModal,
-  fetchAllUsers
-
+  fetchAllUsers,
+  page,
+  setPage,
+  fetchUserWithPaginate,
 }) => {
   const isUpdateModal = true;
   return (
@@ -19,6 +21,9 @@ const ModalUpdateUser = ({
         dataUserUpdateModal={dataUserUpdateModal}
         setDataUserUpdateModal={setDataUserUpdateModal}
         fetchAllUsers={fetchAllUsers}
+        page={page}
+        setPage={setPage}
+        fetchUserWithPaginate={fetchUserWithPaginate}
       />
     </>
   );

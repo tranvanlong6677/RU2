@@ -1,0 +1,43 @@
+.login-container {
+    .login-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+        a {
+            color: #000;
+        }
+        button {
+            color: #000;
+            border: 1px solid rgb(38, 38, 39);
+            border-radius: 4px;
+            text-align: center;
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+    }
+    .login-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        .content {
+            width: 100%;
+
+            form {
+                margin: 0 auto;
+                width: 100%;
+                max-width: 400px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                button {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
