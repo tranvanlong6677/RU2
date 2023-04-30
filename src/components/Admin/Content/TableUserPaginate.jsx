@@ -1,8 +1,9 @@
 import React from "react";
 import { deleteUser } from "../../../services/userServices";
 import { useState } from "react";
+import ReactPaginate from "react-paginate";
 
-const TableUsers = (props) => {
+const TableUsersPaginate = (props) => {
   const {
     listUsers,
     setListUsers,
@@ -14,23 +15,34 @@ const TableUsers = (props) => {
     setIsShowModalDetail,
     isShowModalDetail,
     dataModalDetail,
-    setDataModalDetail
+    setDataModalDetail,
+    page,
+    setPage,
+    totalPage,
+    setTotalPage,
+    fetchUserWithPaginate,
   } = props;
+
+  const handlePageClick = (event) => {
+    console.log(`User requested page number ${event.selected}`);
+    setPage(+event.selected + 1);
+  };
   const handleDeleteUser = async (id) => {
     let res = await deleteUser(id);
-    fetchAllUsers();
+    fetchUserWithPaginate(1);
+    // fetchAllUsers();
   };
   const handleDetailClick = (userDetail) => {
     setIsShowModalDetail(true);
     setDataModalDetail(userDetail);
-    console.log(">>> check userDetail",userDetail);
+    console.log(">>> check userDetail", userDetail);
   };
   const handleEditClick = (userUpdate) => {
     setDataUserUpdateModal(userUpdate);
     setIsShowModalUpdate(true);
   };
   return (
-    <div>
+    <div className="table-user-container">
       <table className="table">
         <thead>
           <tr>
@@ -82,8 +94,29 @@ const TableUsers = (props) => {
           )}
         </tbody>
       </table>
+      <div className="paginate-container">
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={totalPage}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      </div>
     </div>
   );
 };
 
-export default TableUsers;
+export default TableUsersPaginate;

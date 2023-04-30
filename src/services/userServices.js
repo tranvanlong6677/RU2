@@ -9,7 +9,7 @@ const createUser = (email, password, username, role, userImage) => {
   data.append("username", username);
   data.append("role", role);
   data.append("userImage", userImage);
-  
+
   return axios.post("api/v1/participant", data);
 };
 
@@ -20,4 +20,17 @@ const deleteUser = (id) => {
     },
   });
 };
-export { getAllUsers, createUser, deleteUser };
+const updateUser = (id,username, role, image) => {
+  const data = new FormData();
+
+  data.append("id", id);
+  data.append("role", role);
+  data.append("username", username);
+  data.append("userImage", image);
+  return axios.put("api/v1/participant", data);
+};
+
+const getUserWithPaginate = (page,limit)=>{
+  return axios.get(`/api/v1/participant?page=${page}&limit=${limit}`)
+}
+export { getAllUsers, createUser, deleteUser,updateUser,getUserWithPaginate };
