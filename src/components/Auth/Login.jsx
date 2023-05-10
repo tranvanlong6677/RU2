@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import "./Login.scss";
+import { useNavigate } from "react-router-dom";
+import { postLogin } from "../../services/userServices";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = () => {
-    console.log(">>> check login", email, password);
-    alert("Login");
+  const handleLogin = async () => {
+    let res = await postLogin(email, password);
+    if (res && res.EC === 0) {
+      toast.success(res.EM);
+      navigate("/");
+    }
+    if (res && res.EC !== 0) {
+      toast.error(res.EM);
+    }
   };
   return (
     <div className="login-container container">
@@ -52,7 +62,7 @@ const Login = () => {
             </a>
             <br />
             <button
-              type="submit"
+              type="button"
               className="btn btn-dark mx-auto"
               onClick={() => handleLogin()}
             >
@@ -61,7 +71,13 @@ const Login = () => {
           </form>
         </div>
       </div>
-      <div className="login-footer"></div>
+      <div className="login-footer mt-5">
+        <div className="back-home d-flex justify-content-center">
+          <button className="btn btn-primary" onClick={() => navigate("/")}>
+            {"<< Go to Homepage"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
