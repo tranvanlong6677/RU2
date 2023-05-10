@@ -22,7 +22,7 @@ const Login = () => {
     <div className="login-container container">
       <div className="login-header">
         <span>Don't have an account yet?</span>
-        <button>Sign up</button>
+        <button onClick={() => navigate("/register")}>Sign up</button>
         <a href="#">Need help?</a>
       </div>
       <div className="login-content">

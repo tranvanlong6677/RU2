@@ -1,5 +1,7 @@
-.login-container {
-    .login-header {
+.login-container,
+.register-container {
+    .login-header,
+    .register-header {
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -18,7 +20,8 @@
             }
         }
     }
-    .login-content {
+    .login-content,
+    .register-content {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -36,6 +39,21 @@
                 align-items: center;
                 button {
                     width: 100%;
+                }
+                .form-group {
+                }
+                .form-group-password {
+                    position: relative;
+                    .icon-show-password {
+                        cursor: pointer;
+                        svg {
+                            position: absolute;
+                            width: 30px;
+                            height: 30px;
+                            right: 4px;
+                            top: 50%;
+                        }
+                    }
                 }
             }
         }
