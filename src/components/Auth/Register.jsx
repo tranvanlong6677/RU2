@@ -10,7 +10,24 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
   const handleRegister = async () => {
+    // validate
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("Invalid Email");
+      return;
+    }
+    if (!password) {
+      toast.error("Invalid password");
+      return;
+    }
     let res = await postRegister(email, username, password);
     if (res && res.EC === 0) {
       toast.success(res.EM);
@@ -57,12 +74,12 @@ const Register = () => {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-            <div className="form-group  form-group-password col-sm-12 mb-2">
+            <div className="form-group  form-group-password col-sm-12 mb-5">
               <label htmlFor="password" className="mb-2">
                 Password
               </label>
               <input
-                type={isShowPassword?"text":"password"}
+                type={isShowPassword ? "text" : "password"}
                 className="form-control"
                 id="password"
                 placeholder="Password"
@@ -74,10 +91,14 @@ const Register = () => {
                 className="icon-show-password"
                 onClick={() => setIsShowPassword(!isShowPassword)}
               >
-                {isShowPassword && password !== "" ? (
-                  <AiFillEye />
+                {password !== "" ? (
+                  isShowPassword ? (
+                    <AiFillEye />
+                  ) : (
+                    <AiFillEyeInvisible />
+                  )
                 ) : (
-                  <AiFillEyeInvisible />
+                  <></>
                 )}
               </span>
             </div>
