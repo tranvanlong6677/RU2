@@ -3,14 +3,19 @@ import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../services/userServices";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/action/userAction";
+import { FaSpinner } from "react-icons/fa";
+import '../../../node_modules/nprogress/nprogress.css'
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
+  // const account = useSelector((state) => state.user.isLoading);
+
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -29,14 +34,18 @@ const Login = () => {
       toast.error("Invalid password");
       return;
     }
+    setIsLoadingLogin(true);
 
+    // call api
     let res = await postLogin(email, password);
     if (res && res.EC === 0) {
       dispatch(login(res));
       toast.success(res.EM);
+      setIsLoadingLogin(false);
       navigate("/");
     }
     if (res && res.EC !== 0) {
+      setIsLoadingLogin(false);
       toast.error(res.EM);
     }
   };
@@ -87,8 +96,10 @@ const Login = () => {
               type="button"
               className="btn btn-dark mx-auto"
               onClick={() => handleLogin()}
+              disabled = {isLoadingLogin ? true : false}
             >
-              Login to Typeform
+              {isLoadingLogin && <FaSpinner />}
+              <span className="mx-3">Login to Typeform</span>
             </button>
           </form>
         </div>
